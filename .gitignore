@@ -1,3 +1,6 @@
+# Ignore our unencrypted senstive password and Client ID directory
+/sensitive
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
