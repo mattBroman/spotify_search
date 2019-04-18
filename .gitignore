@@ -106,6 +106,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+<<<<<<< HEAD
+api.py
+=======
 
 # Created by https://www.gitignore.io/api/vim,latex,linux,macos,python,windows,pycharm,jetbrains,visualstudio,microsoftoffice,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=vim,latex,linux,macos,python,windows,pycharm,jetbrains,visualstudio,microsoftoffice,visualstudiocode
@@ -1098,3 +1101,4 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/vim,latex,linux,macos,python,windows,pycharm,jetbrains,visualstudio,microsoftoffice,visualstudiocode
 
+>>>>>>> bcf88df22512260dc0047e4dbc4b716898df3032
