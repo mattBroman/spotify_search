@@ -40,7 +40,7 @@ class SpotifyManager :
             for playlist in playlists['items']:
                 print(playlist['name'])
                 print('total tracks: ', playlist['tracks']['total'])
-                results = sp.user_playlist(self.username, playlist['id'], fields='tracks,next')
+                results = sp.user_playlist(self.username, playlist['id'])
                 tracks = results['tracks']
                 self.download_songs(tracks)
                 while tracks['next'] :
