@@ -241,14 +241,14 @@ class SpotifyManager :
             playlist_data = open('playlist.json', 'w')
             sp = spotipy.Spotify(auth=self.token)
             playlists_arr = []
-            playlists = sp.featured_playlists(country="US")['playlists']
-            #print(playlists['playlists'])
+            playlists = sp.featured_playlists(country="US", limit = 50, offset = 0)
 
             # iterate through getting indvidual playlist info
-            for playlist in playlists['items']:
-                print(playlist['name'])
-                print('total tracks: ', playlist['tracks']['total'])
-                playlists_arr.append(playlist)
+            while playlists:  
+                for playlist in playlists['playlists']['items'] :
+                    print('total tracks: ', playlist['tracks']['total'])
+                    playlists_arr.append(playlist)
+                playlists = sp.next(playlists['playlists'])
 
             # place in dict, convert to json, save json
             playlists_dict = {'playlist': playlists_arr}
