@@ -138,6 +138,9 @@ class SpotifyManager :
                         if not song_info['id'] :
                             print (song_info['name'])
                         songs_dict[track['track']['id']] = song_info
+
+                        # Write individual song to flat json file
+                        self.write_indiv_json(song_info)
                         print(i, ' ', track['track']['artists'][0]['name'], track['track']['name'])
                     else :
                         songs_dict[track['track']['id']]['playlists'].append(playlist['id'])
@@ -153,11 +156,16 @@ class SpotifyManager :
             print("Can't get token for", self.username)
             return None
 
+<<<<<<< HEAD
     def write_indiv_json(self, output_folder:str, song_info:dict):
+=======
+    def write_indiv_json(self, song_info:dict):
+>>>>>>> d836d6232713e51023c8ecdea513badb5bf42ed1
         """
         Takes the dict of the song data that is returned from the API request and then outputs the
         song data for that track to its own json file in the Song_json folder. This is to be used
         when posting song data
+<<<<<<< HEAD
         :param song_info: dict of the song data of every song we pulled
         :return: the json string we encoded
         """
@@ -174,6 +182,18 @@ class SpotifyManager :
             file_list.append(file_name)
 
         return file_list
+=======
+        :param song_info: dict of the song data
+        :return: the json string we encoded
+        """
+        file_name = self.root_dir + song_info['id'] + ".json"
+        file = open(file_name, 'w')
+
+        json_str = to_json(song_info)
+        file.write(json_str)
+        file.close()
+        return json_str
+>>>>>>> d836d6232713e51023c8ecdea513badb5bf42ed1
 
 
     def song_format(self, song_dict) :
