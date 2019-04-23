@@ -1,6 +1,7 @@
 # import urllib.request
 import json
 import requests
+import spotipy as sp
 
 class Solr_Query:
 
@@ -63,11 +64,15 @@ class Solr_Query:
 
         return response.json()
 
-    def print_results(self, results:dict):
+    def print_search_results(self, results:dict):
         for song in results['response']['docs']:
             # Every value in the dict is returned as a list
             # output =
-            print(song['id'].strip() + ": ", song['name'][0].strip())
+            print("\nSong:", song['name'][0].strip())
+            print("\tArtist: ",  song['artists'][0].strip())
+            print("\tAlbum: ", song['album'][0].strip())
+            print("\tURL: \x1b", song['external_urls.spotify'][0].strip(), "\x1b\a")
+            print("\tID: ", song['id'].strip())
 
 
 

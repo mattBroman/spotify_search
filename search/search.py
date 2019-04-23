@@ -32,7 +32,7 @@ def search_by_id(id:str):
 def create_playlist(playlist:str, id:str):
     pass
 
-def print_results(results):
+def print_search_results(results):
     pass
 
 def main():
@@ -41,13 +41,14 @@ def main():
     :return:
     """
     description = "Utility to search for spotify by song, artist or song ID and to create playlists based off of song ID's"
-    usage = "search.py [-h] [-s SONG | -a ARTIST | -i ID] [-p PLAYLIST & -i ID]"
+    usage = "search.py [-h] [-s SONG | -a ARTIST | -i ID] [-p PLAYLIST & -i ID & -d DESCRIPTION]"
     parser = argparse.ArgumentParser(description=description, usage=usage)
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-s", "--song", nargs=1, required='--argument' in sys.argv, help="Search for a song by name")
     group.add_argument("-a", "--artist", nargs=1, required='--argument' in sys.argv, help="Search for songs from an Artist\n")
     group.add_argument("-i", "--id", nargs=1, required='--argument' in sys.argv, help="Search for song based on ID or create playlist based off of song ID")
     parser.add_argument("-p", "--playlist", nargs = 1, required='--id' in sys.argv, help="Name of the playlist to be created. MUST be used with -i/--id")
+    parser.add_argument("-d", "--description", nargs = 1, required='--argument' in sys.argv, help="Playlist Description. Must be used with -i and -p")
     args = parser.parse_args()
     # print(args)
 
@@ -61,7 +62,7 @@ def main():
         solr.set_search_type("songs")
         query = solr.set_query(song_name)
         response = solr.exec_query(query)
-        solr.print_results(response)
+        solr.print_search_results(response)
 
 
     if args.artist:
@@ -70,7 +71,7 @@ def main():
         solr.set_search_type("artists")
         query = solr.set_query(artist)
         response = solr.exec_query(query)
-        solr.print_results(response)
+        solr.print_search_results(response)
 
     if args.id:
         print("Searching for song with ID:", args.id[0].strip())
@@ -78,13 +79,15 @@ def main():
         solr.set_search_type("id")
         query = solr.set_query(id)
         response = solr.exec_query(query)
-        solr.print_results(response)
+        solr.print_search_results(response)
 
     # Still trying to figure this one out. The getmorelike this funcionality is harder than we thought
-    if args.playlist and args.id:
+    if args.playlist and args.id and args.description:
         print("Creating a playlist based off of song ID:", args.id[0].strip())
     elif args.playlist and not args.id:
         parser.error("Must input a song ID to create a playlist with!")
+    elif args.playlist and not args.description:
+        parser.error("Must input a playlist description")
 
     print("\nDone!")
 
