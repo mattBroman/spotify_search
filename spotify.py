@@ -201,13 +201,15 @@ class SpotifyManager:
             playlist_data = open('playlist.json', 'w')
             sp = spotipy.Spotify(auth=self.token)
             playlists_arr = []
-            playlists = sp.user_playlists(self.username)
+            playlists = sp.user_playlists(self.username, limit=50, offset=0)
+            print(playlists.keys())
 
             # iterate through getting indvidual playlist info
-            for playlist in playlists['items']:
-                print(playlist['name'])
-                print('total tracks: ', playlist['tracks']['total'])
-                playlists_arr.append(playlist)
+            while playlists:
+                for playlist in playlists['items']:
+                    print('total tracks: ', playlist['tracks']['total'])
+                    playlists_arr.append(playlist)
+                playlists = sp.next(playlists)
 
             # place in dict, convert to json, save json
             playlists_dict = {'playlist': playlists_arr}
@@ -230,7 +232,6 @@ class SpotifyManager:
             shutil.rmtree(folder_name)
         os.makedirs(folder_name)
 
-    # TODO: this function doesn't work with download_songs because the returned data is not the same as user_playlists
     def download_featured_playlists(self):
         """
         Performs the same function as download_user_playlists but instead pulls all of the featured
@@ -272,7 +273,6 @@ class SpotifyManager:
             shutil.rmtree(folder_name)
         os.makedirs(folder_name)
 
-# TODO: this function doesn't work with download_songs because the returned data is not the same as user_playlists
     def download_featured_playlists(self):
         """
         Performs the same function as download_user_playlists but instead pulls all of the featured
@@ -309,5 +309,4 @@ if __name__ == '__main__' :
     sm = SpotifyManager(sys.argv[1])
     output_folder = sys.argv[2]
     # playlist_arr = sm.download_user_playlists()
-    playlist_arr = sm.download_featured_playlists()
-    tracks_arr = sm.download_songs(playlist_arr, output_folder)
+    sm.download_featured_playlists()
