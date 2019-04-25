@@ -52,6 +52,14 @@ searching either by name of the song or by artist. It returns a result if there 
 results. This means if only a portion of a song name is typed in (maybe the user doesn't remember the 
 entire song name) they can still get a list of potential matches.
 
+## Authenticating Yourself For the Spotify API
+When trying to authenticate yourself for using Spotify, which is the spotify.py and search.py files,
+the terminal will prompt you to go to authenticate yourself. It will print the link and may even
+redirect you there automatically. From there, you login and it will redirect you to a different site.
+This site will mostly not connect to anything but you will still copy the URL you are directed to and
+paste it into the terminal where it is asking for it. If you have a Spotify account and nothing has 
+gone wrong, the scripts should work perfectly.
+
 ## Enviroment and Dependcies 
 python -v 3.7.3
 spotipy -v 2.4.4
