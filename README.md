@@ -46,7 +46,7 @@ addition, the CLI allows the user to create a playlist based on a specific song.
 their username, the song ID, the playlist name and the playlist description. The CLI then calls the 
 appropriate functions to get songs similar to the one we specified and create a playlist with those songs.
 
-## Song Creation With Search.py
+## Playlist Creation With Search.py
 We were able to create playlists using our CLI. This allowed us to achieve fast and accurate song 
 searching either by name of the song or by artist. It returns a result if there is a text match in the 
 results. This means if only a portion of a song name is typed in (maybe the user doens't remember the 
