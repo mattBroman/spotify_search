@@ -49,7 +49,7 @@ appropriate functions to get songs similar to the one we specified and create a 
 ## Playlist Creation With Search.py
 We were able to create playlists using our CLI. This allowed us to achieve fast and accurate song 
 searching either by name of the song or by artist. It returns a result if there is a text match in the 
-results. This means if only a portion of a song name is typed in (maybe the user doens't remember the 
+results. This means if only a portion of a song name is typed in (maybe the user doesn't remember the 
 entire song name) they can still get a list of potential matches.
 
 ## Enviroment and Dependcies 
