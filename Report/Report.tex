@@ -21,8 +21,8 @@
     relies on other users groupings and playlists. Often times, the songs
     are not similar but are still in the same genre, which can lead to a
     very jarring transition from a quiet, slow song to a louder, quicker
-    one. Examples of this can be Come Sail Away by The Styx transitioning to
-    The Grand Illusion by the same band. These two songs are in the same
+    one. Examples of this can be \textit{Come Sail Away} by The Styx transitioning to
+    \textit{The Grand Illusion} by the same band. These two songs are in the same
     genre, the same band, and even in the same album, however, the two songs
     are drastically different in style and volume dynamics.
     
@@ -56,7 +56,7 @@
         
 \section{Tool Choices}
     \subsection{Solr}
-        We chose to use Solr for several reasons. First, it provides robust and efficient text searching.Solr returns search results based on text, making it very easy to implement search functionality based on the numerous parameters in the song data. Solr can perform a search based on any or all fields of a song. In addition, it is very quick and efficient to search based on certain parameters. Another surprising and convenient feature of Solr is the efficient storage of song data. We pulled json data from Spotify that came out to around 1 GB. This was just information and not actually the song audio. However, when we uploaded it to Solr, its final size for our instance only came out to under 15 MB for over 23,000 songs. We created an Amazon AWS EC2 instance (a cloud virtual machine) and installed Solr on it so that it could be accessed quickly and easily over any network. All that is needed to interface with it is the IP address of the server and the query for information. This interface was achieved programmatically using Python connection libraries. An example url string to query Solr is:
+        We chose to use Solr for several reasons. First, it provides robust and efficient text searching. Solr returns search results based on text, making it very easy to implement search functionality based on the numerous parameters in the song data. Solr can perform a search based on any or all fields of a song. In addition, it is very quick and efficient to search based on certain parameters. Another surprising and convenient feature of Solr is the efficient storage of song data. We pulled json song data from Spotify for over numerous playlists. This was just information and not actually the song audio. However, when we uploaded it to Solr, its final size for our instance only came out to under 70 MB for over 91,000 songs. We created an Amazon AWS EC2 instance (a cloud virtual machine) and installed Solr on it so that it could be accessed quickly and easily over any network. All that is needed to interface with it is the IP address of the server and the query for information. This interface was achieved programmatically using Python connection libraries. An example URL string to query Solr is:
 
         \begin{center}
             \textbf{http://52.14.160.147:8983/solr/SpotifyDB/select?q=artists:``Taylor Swift"}
@@ -69,7 +69,7 @@
 
         
 \section{Song Data}
-    We stored very detailed song information in order to create more accurate playlists. Every song that went into our data base was stored with its name, artist, album, danceability, liveness, energy, instrumentalness, speechiness, valence, tempo, key, and other information shown below. The song data was uploaded into the Solr Instance in the following format:
+    We stored very detailed song information in order to create more accurate playlists. Every song that went into our database was stored with its name, artist, album, danceability, liveness, energy, instrumentalness, speechiness, valence, tempo, key, and other information shown below. The song data was uploaded into the Solr Instance in the following format:
     
     \begin{verbatim}
     {
@@ -101,7 +101,7 @@
     \end{verbatim}
     
 \section{Music Search++ CLI}
-    We wrote a Python CLI program to facilitate the interface between the user, Solr and Spotify. This CLI lets the user search our Solr database by song name, by artist, or by the songs specific Spotify ID. In addition, the CLI allows the user to create a playlist based on a specific song. The user must input their username, the song ID, the playlist name and the playlist description. The CLI then calls the appropriate functions to get songs similar to the one we specified and create a playlist with those songs. The instructions for the CLI are shown below:
+    We wrote a Python CLI program to facilitate the interface between the user, Solr and Spotify. This CLI lets the user search our Solr database by song name, by artist, or by its specific Spotify ID. In addition, the CLI allows the user to create a playlist based on a specific song. The user must input their username, the song ID, the playlist name and the playlist description. The CLI then calls the appropriate functions to get songs similar to the one we specified and create a playlist with those songs. The instructions for the CLI are shown below:
     
     \begin{figure}[htp]
         \centering
@@ -110,7 +110,6 @@
         \label{fig:searchcli}
     \end{figure}
 
-\section{Results}
     \subsection{Song Searching}
         We were able to create playlists using our CLI. This allowed us to achieve fast and accurate song searching either by name of the song or by artist. It returns a result if there is a text match in the results. This means if only a portion of a song name is typed in (maybe the user doens't remember the entire song name) they can still get a list of potential matches. The results of which are shown below:
         
@@ -141,7 +140,7 @@
         \begin{figure}[htp]
             \centering
             \includegraphics[width=\textwidth]{Playlist_Create.png}
-            \caption{Creating a Playlist Based on the Song, ``Teardrop On My Guitar, by Taylor Swift}
+            \caption{Creating a Playlist Based on the Song, \textit{Teardrops On My Guitar}, by Taylor Swift}
             \label{fig:playlistcreate}
         \end{figure}
         
@@ -153,16 +152,12 @@
         \end{figure}
         
 \newpage
-    \subsection{Playlist Analysis}
-        We were able to create a playlist based off a single song. In the example above, the playlist was based off of the song Shoot To Thrill by AC/DC. The playlist created had fairly consistent song choice. We actually created a new feature for Spotify. Spotify does not have the option to create a playlist based off a single song. In addition, Spotify usually tries to generate a playlist off of multiple songs, such as recommending songs for adding to a playlist while viewing a specific playlist. In addition, when Spotify recommends songs to be added to a playlist, it usually does so using an amalgamation of song data generated from all of the songs in the playlist. This usually dilutes the song information with information from other songs and can skew the target mood and feel of the returned songs of that search. Also, our returned songs are usually better matches than Spotify's implemenation because we specify ONLY the song metadata as target values to reach. Spotify tries to create a range of song metadata (range of values for liveness, energy, etc.) in order to broaden its search. In addition, we don't include album, artist, or popularity data in the search so this can expand the search to more obscure yet high quality songs that fit our criteria. Due to the characteristics of the song, results are usually in the same genre but are from different artists or the same artist or even in the same album.
 
-        
-        
-    
+\section{Playlist Analysis}
+    We were able to create a playlist based off a single song. In the example above, the playlist was based off of the song, \textit{Shoot To Thrill}, by AC/DC. The playlist created had fairly consistent song choice. We did not realize until the end, but we actually created a new feature for Spotify. Spotify does not have the option to create a playlist based off a single song. Its closest equivalent is going to the ``Song Radio" which is  a similar feature to ours, but does not allow the user to save those songs without further user action. In addition, Spotify usually tries to generate a playlist off of multiple songs, such as recommending songs for adding to a playlist while viewing a specific playlist. In addition, when Spotify recommends songs to be added to a playlist, it usually does so using an amalgamation of song data generated from all of the songs in the playlist or from the user's listening history. This usually dilutes the song information with information from other songs and can skew the target mood and feel of the returned songs of that search. Also, our returned songs are usually better matches than Spotify's implemenation because we specify ONLY the song metadata as target values to reach. Spotify tries to create a range of song metadata (range of values for liveness, energy, etc.) in order to broaden its search. In addition, we don't include album, artist, or popularity data in the search so this can expand the search to more obscure, yet high quality songs that fit our criteria. Due to the characteristics of the song, results are usually in the same genre but from different artists. Somtimes, the song will come from the same artist or even in the same album. Every playlist we created had songs with very similar characteristics.
 
-    
+\section{My Contributions}
+    Essentially, my contribution to the project was the Solr setup and querying tools. I handled the setup and configuration of the Solr Instance as well as writing the Music Search++ CLI. I set up an Amazon EC2 instance (a cloud virtual machine) and loaded Solr 7.7 onto it. I set up the VM to allow network requests and started the Solr engine. Setup was very simple as most of the features that we needed came out of the box. Solr was able to use its dynamic field generation feature so that we were able to upload our json song documents without having to specify the specific fields in the Solr schema beforehand. For the CLI, I used the default Python package, Argsparse, as the command line parser since it was easy to use and flexible enough to have the CLI fulfill the various functions it needed to have. From there, I was in charge of using the Spotify API in order to get similar songs based off a song's ID in addition to creating a playlist and populating the playlist with the similar songs. 
 
-    
-    
 
 \end{document}
