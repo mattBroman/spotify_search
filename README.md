@@ -1,5 +1,5 @@
-# spotify_search
-CSCE 470 project
+# Music Search++
+CSCE 470 project by Jonathan Westerfield and Matthew Broman
 
 ## Abstract
 Spotify uses a music algorithm in order to group songs into music
@@ -37,7 +37,21 @@ to be uploaded to Solr using Solr's post tool.
 
 ## Search Folder
 Inside the search/ folder, there exists the Python Scripts that allows a user to query the Solr database.
+search.py is the CLI tool that allows the user to interface with the Solr Instance and Spotify API.
 
-enviroment and dependcies 
+## Searching with Search.py
+We wrote a Python CLI program to facilitate the interface between the user, Solr and Spotify. This CLI 
+lets the user search our Solr database by song name, by artist, or by the songs specific Spotify ID. In 
+addition, the CLI allows the user to create a playlist based on a specific song. The user must input 
+their username, the song ID, the playlist name and the playlist description. The CLI then calls the 
+appropriate functions to get songs similar to the one we specified and create a playlist with those songs.
+
+## Song Creation With Search.py
+We were able to create playlists using our CLI. This allowed us to achieve fast and accurate song 
+searching either by name of the song or by artist. It returns a result if there is a text match in the 
+results. This means if only a portion of a song name is typed in (maybe the user doens't remember the 
+entire song name) they can still get a list of potential matches.
+
+## Enviroment and Dependcies 
 python -v 3.7.3
 spotipy -v 2.4.4
